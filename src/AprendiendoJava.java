@@ -113,5 +113,7 @@ public class AprendiendoJava {
         System.out.println("Proporciona tu edad:");
         edad = Integer.parseInt( consola.nextLine() );
         System.out.println("edad = " + edad);
+
+        //ESTUDIAR CONDICIONALES, HERENCIA, ETC
     }
 }
