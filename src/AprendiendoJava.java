@@ -58,5 +58,60 @@ public class AprendiendoJava {
         System.out.println("numeroDouble = " + numeroDouble);
         System.out.println("Valor minimo tipo double: " + Double.MIN_VALUE);
         System.out.println("Valor maximo tipo double: " + Double.MAX_VALUE);
+
+
+        //Inferencia de tipo var
+        var varEntera = 10;
+        System.out.println("varEntera = " + varEntera);
+
+        var varDouble = 10.0;
+        System.out.println("varDouble = " + varDouble);
+
+        var varFloat = 10.0F;
+        System.out.println("varFloat = " + varFloat);
+
+
+        //Varibales de tipo char
+        char miCaracter = 'P'; //usar comillas simples
+        System.out.println("miCaracter = " + miCaracter);
+        //Una variable tipo char usa 16 bits, un entero usa 32 bits
+        char varEnteraSimbolo = 33;
+        System.out.println("varEnteraSimbolo = " + varEnteraSimbolo);
+        //importante revisar codigos UNICODE para trabajar mejor con caracteres en Java
+
+
+        //Variable boolean
+        boolean banderaSi = true;
+        boolean banderaNo = false;
+
+        boolean varBooleano = true;
+
+        if(varBooleano){
+            System.out.println("La bandera tiene valor true");
+        } else {
+            System.out.println("La bandera tiene valor false");
+        }
+
+        var edad = 10;
+
+        if(edad >= 18){
+            System.out.println("Eres mayor de edad");
+        } else {
+            System.out.println("Eres menor de edad");
+        }
+
+        //Convertir tipo String a un tipo int
+        //var edad = Integer.parseInt("20");
+        //var edad = "20";
+        System.out.println("edad = " + (edad + 1));
+
+        var valorPI = Double.parseDouble("3.1416");
+        System.out.println("valorPI = " + valorPI);
+
+        //Pedir un valor
+        var consola = new Scanner(System.in);
+        System.out.println("Proporciona tu edad:");
+        edad = Integer.parseInt( consola.nextLine() );
+        System.out.println("edad = " + edad);
     }
 }
