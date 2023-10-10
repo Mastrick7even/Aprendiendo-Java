@@ -9,21 +9,53 @@ public class caracteresRepetidosMatrizV2 {
         // Pedir palabra por teclado y validar tamano correcto.
         System.out.print("Ingrese una frase: ");
         palabraIngresada = scanf.nextLine();
+        palabraIngresada = palabraIngresada.toUpperCase();
         longitud = palabraIngresada.length();
 
         // Quitar las letras repetidas de la palabra ingresada.
         String palabraSinRepetir = eliminarRepetidos(palabraIngresada);
 
-        // Transformar la palabra a mayuscula (solo para que se vea mejor en la matriz).
-        String palabraMayus = palabraSinRepetir.toUpperCase();
-
         // Ingresar la palabra sin letras repetidas dentro de la matriz y luego imprimirla.
-        llenarEimprimirMatriz(palabraMayus, matriz);
+        llenarEimprimirMatriz(palabraSinRepetir, matriz);
 
         System.out.print("Ingresa una palabra para codificarla: ");
         String palabraAcodificar = scanf.nextLine();
-        String palabraCodificada = codificarPalabra(matriz, palabraAcodificar);
-        System.out.println("La palabra encriptada es: " + palabraCodificada);
+        String palabraEncriptada = codificarPalabra(matriz, palabraAcodificar);
+        System.out.println("La palabra encriptada es: " + palabraEncriptada);
+        String palabraDesencriptada = decodificarPalabra(matriz, palabraEncriptada);
+        System.out.println("La palabra desencriptada es: " + palabraDesencriptada);
+    }
+
+    // FUNCIONES
+    public static String decodificarPalabra(char[][] matriz, String palabra) {
+        String palabraDecodificada = "";
+        palabra = palabra.toUpperCase();
+        for (int k = 0; k < palabra.length(); k++) {
+            boolean accion = false;
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    if (matriz[i][j] == 32 || matriz[0][0] == palabra.charAt(k)) {
+                        palabraDecodificada += palabra.charAt(k);
+                        accion = true;
+                        break; //para asi salir del ciclo j, en caso de ya haber encontrado la letra en la fila correspondiente.
+                    } else if (matriz[i][j] == palabra.charAt(k)) {
+                        if (j == 0 && i > 0) {
+                            palabraDecodificada += matriz[i - 1][4];
+                        } else if(j < 4 && matriz[i][j+1] == 32){
+                            palabraDecodificada += palabra.charAt(k);
+                        } else {
+                            palabraDecodificada += matriz[i][j-1];
+                        }
+                        accion = true;
+                        break;
+                    }
+                }
+                if (accion) {
+                    break;
+                }
+            }
+        }
+        return palabraDecodificada;
     }
 
     public static String codificarPalabra(char[][] matriz, String palabra) {
@@ -60,32 +92,6 @@ public class caracteresRepetidosMatrizV2 {
         return palabraCodificada;
     }
 
-
-    /*public static String codificarPalabra(char[][] matriz, String palabra) {
-        String palabraCodificada = "";
-        palabra = palabra.toUpperCase();
-        int k = 0;
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (matriz[i][j] == 32) {
-                    palabraCodificada += palabra.charAt(k);
-                } else if (palabra.charAt(k) == matriz[i][j]) {
-                    if (j == 4) { // Si llega al limite de la fila
-                        palabraCodificada += matriz[i + 1][0]; // Bajar a la siguiente fila
-                    } else {
-                        palabraCodificada += matriz[i][j + 1];
-                    }
-                }
-                k++;
-                i = 5;
-                j = 5;
-            }
-        }
-        return palabraCodificada;
-    }*/
-
-
-    // FUNCIONES
     public static String eliminarRepetidos(String palabra) {
         String palabraSinRepetidos = ""; // Crear String vacio que se ira llenando caracter a caracter (sin repetidos).
         for (int i = 0; i < palabra.length(); i++) {
