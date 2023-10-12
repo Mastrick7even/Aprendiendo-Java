@@ -4,13 +4,11 @@ public class caracteresRepetidosMatrizV2 {
     public static void main(String[] args) {
         Scanner scanf = new Scanner(System.in);
         String palabraIngresada;
-        int longitud;
         char[][] matriz = new char[5][5];
         // Pedir palabra por teclado y validar tamano correcto.
         System.out.print("Ingrese una frase: ");
         palabraIngresada = scanf.nextLine();
         palabraIngresada = palabraIngresada.toUpperCase();
-        longitud = palabraIngresada.length();
 
         // Quitar las letras repetidas de la palabra ingresada.
         String palabraSinRepetir = eliminarRepetidos(palabraIngresada);
@@ -38,13 +36,20 @@ public class caracteresRepetidosMatrizV2 {
                         palabraDecodificada += palabra.charAt(k);
                         accion = true;
                         break; //para asi salir del ciclo j, en caso de ya haber encontrado la letra en la fila correspondiente.
-                    } else if (matriz[i][j] == palabra.charAt(k)) {
+                    } else if (matriz[i][j] == palabra.charAt(k) ) {
                         if (j == 0 && i > 0) {
                             palabraDecodificada += matriz[i - 1][4];
                         } else if(j < 4 && matriz[i][j+1] == 32){
-                            palabraDecodificada += palabra.charAt(k);
+                            palabraDecodificada += matriz[i][j-1];
+
                         } else {
                             palabraDecodificada += matriz[i][j-1];
+                        }
+                        accion = true;
+                        break;
+                    } else if (j < 4 && matriz[i][j+1] == 32) {
+                        if(palabra.charAt(k) == '1'){
+                            palabraDecodificada += matriz[i][j];
                         }
                         accion = true;
                         break;
@@ -73,9 +78,13 @@ public class caracteresRepetidosMatrizV2 {
                         break;
                     } else if (matriz[i][j] == letra) {
                         if (j == 4) {
-                            palabraCodificada += matriz[i + 1][0];
+                            if (matriz[i+1][0] == 32) {
+                                palabraCodificada += letra;
+                            } else {
+                                palabraCodificada += matriz[i + 1][0];
+                            }
                         } else if (matriz[i][j + 1] == 32) {
-                            palabraCodificada += letra;
+                            palabraCodificada += '1';
                         } else {
                             palabraCodificada += matriz[i][j + 1];
                         }
